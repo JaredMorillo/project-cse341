@@ -3,9 +3,12 @@ const app = express();
 const routes = require("./routes");
 const db = require("./database/db");
 const BodyParser = require("body-parser")
-
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
+
+// Permitir todas las solicitudes de cualquier origen
+app.use(cors());
 
 var options = {
   explorer: true

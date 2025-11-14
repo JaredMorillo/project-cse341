@@ -5,8 +5,10 @@ const saveConnection = (req, res, next) => {
     firstName: 'required|string',
     lastName: 'required|string',
     email: 'required|email',
-    favoriteColor: 'required|string',
-    birthday: 'string'
+    city: 'required|string',
+    country: 'string',
+    instagram: 'string',
+    facebook: 'string'
   };
 
   validator(req.body, validationRule, {}, (err, status) => {

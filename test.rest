@@ -1,14 +1,14 @@
 
 ### Get all contacts
-GET http://cse341-vcsw.onrender.com/contacts
+GET http://project-cse341-01wr.onrender.com/connection
 
 
 ### Get contact by id
-GET http://cse341-vcsw.onrender.com/contacts/69176a573398a749a47a8779
+GET http://project-cse341-01wr.onrender.com/connection/69176a573398a749a47a8779
 
 
 ### Create contact
-POST http://cse341-vcsw.onrender.com/contacts
+POST http://project-cse341-01wr.onrender.com/connection
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ###Update a contact
-PUT http://cse341-vcsw.onrender.com/contacts/69176a573398a749a47a8779
+PUT http://project-cse341-01wr.onrender.com/69176a573398a749a47a8779
 Content-Type: application/json
 
 {
@@ -36,4 +36,4 @@ Content-Type: application/json
 }
 
 ###Delete a contact
-DELETE http://cse341-vcsw.onrender.com/contacts/6917865f055f6d207cb878fd
+DELETE http://project-cse341-01wr.onrender.com/connection/6917865f055f6d207cb878fd
