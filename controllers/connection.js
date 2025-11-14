@@ -32,8 +32,10 @@ const createConnection = async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            favoriteColor: req.body.favoriteColor,
-            birthday: req.body.birthday
+            city: req.body.city,
+            country: req.body.country,
+            instagram: req.body.instagram,
+            facebook: req.body.facebook
         };
         const response = await db.getDatabase().collection('connection').insertOne(connection);
         res.status(201).json(response);
@@ -53,8 +55,10 @@ const updateConnection = async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            favoriteColor: req.body.favoriteColor,
-            birthday: req.body.birthday
+            city: req.body.city,
+            country: req.body.country,
+            instagram: req.body.instagram,
+            facebook: req.body.facebook
         };
         const response = await db.getDatabase().collection('connection').replaceOne({ _id: connectionId }, connection);
         if (response.modifiedCount > 0) {

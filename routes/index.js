@@ -7,6 +7,6 @@ router.get("/", (req, res) => {
     res.send("Hello from Routes")
 })
 
-router.use('/contacts', require('./contacts'))
+router.use('/connection', require('./connection'))
 
 module.exports = router

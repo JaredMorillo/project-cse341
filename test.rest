@@ -12,11 +12,13 @@ POST http://cse341-vcsw.onrender.com/contacts
 Content-Type: application/json
 
 {
-"firstName": "Sam",
-"lastName": "Johnson",
-"email": "sam@example.com",
-"favoriteColor": "Green",
-"birthday": "1990-05-15"
+"firstName":"Caden",
+"lastName": "Smith",
+"email": "casm@example.com",
+"city": "Rhode Island",
+"country": "United States",
+"instagram": "casm_ins",
+"facebook": "Caden Smith"
 }
 
 ###Update a contact
@@ -24,11 +26,13 @@ PUT http://cse341-vcsw.onrender.com/contacts/69176a573398a749a47a8779
 Content-Type: application/json
 
 {
-"firstName": "Daniel",
-"lastName": "Johnson",
-"email": "daniel@example.com",
-"favoriteColor": "Green",
-"birthday": "1990-05-15"
+"firstName":"Caden",
+"lastName": "Smith",
+"email": "casm@example.com",
+"city": "Rhode Island",
+"country": "United States",
+"instagram": "casm_ins",
+"facebook": "Caden Smith"
 }
 
 ###Delete a contact
