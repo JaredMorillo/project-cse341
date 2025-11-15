@@ -4,11 +4,11 @@ GET http://project-cse341-01wr.onrender.com/books
 
 
 ### Get contact by id
-GET http://project-cse341-01wr.onrender.com/connection/69176a573398a749a47a8779
+GET http://project-cse341-01wr.onrender.com/books/6917d5fa5a2786c105924fd6
 
 
 ### Create contact
-POST http://project-cse341-01wr.onrender.com/connection
+POST http://project-cse341-01wr.onrender.com/books
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ###Update a contact
-PUT http://project-cse341-01wr.onrender.com/69176a573398a749a47a8779
+PUT http://project-cse341-01wr.onrender.com/6917d5fa5a2786c105924fd6
 Content-Type: application/json
 
 {
@@ -36,4 +36,4 @@ Content-Type: application/json
 }
 
 ###Delete a contact
-DELETE http://project-cse341-01wr.onrender.com/connection/6917865f055f6d207cb878fd
+DELETE http://project-cse341-01wr.onrender.com/books/6917865f055f6d207cb878fd

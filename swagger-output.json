@@ -26,6 +26,9 @@
     },
     "/connection/": {
       "get": {
+        "tags": [
+          "Friendship Connection"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -37,6 +40,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Friendship Connection"
+        ],
         "description": "",
         "parameters": [
           {
@@ -85,6 +91,9 @@
     },
     "/connection/{id}": {
       "get": {
+        "tags": [
+          "Friendship Connection"
+        ],
         "description": "",
         "parameters": [
           {
@@ -110,6 +119,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Friendship Connection"
+        ],
         "description": "",
         "parameters": [
           {
@@ -168,6 +180,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Friendship Connection"
+        ],
         "description": "",
         "parameters": [
           {
@@ -195,6 +210,9 @@
     },
     "/books/": {
       "get": {
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -206,6 +224,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -245,6 +266,9 @@
     },
     "/books/{id}": {
       "get": {
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -270,6 +294,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {
@@ -319,6 +346,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Books"
+        ],
         "description": "",
         "parameters": [
           {

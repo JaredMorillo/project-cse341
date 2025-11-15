@@ -6,7 +6,7 @@ const doc = {
     description: 'API Documentation for CSE 341'
   },
   host: 'project-cse341-01wr.onrender.com',
-  schemes: ['https']
+  schemes: ['https'],
 };
 
 const outputFile = './swagger-output.json';
