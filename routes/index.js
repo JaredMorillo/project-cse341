@@ -1,6 +1,5 @@
 const router = require("express").Router();
 
-router.use('/', require('./swagger.js'))
 
 router.get("/", (req, res) => {
     //#swagger.tags=['Hello from Routes']
@@ -8,5 +7,7 @@ router.get("/", (req, res) => {
 })
 
 router.use('/connection', require('./connection'))
+
+router.use('/books', require('./books.js'))
 
 module.exports = router

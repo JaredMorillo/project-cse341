@@ -1,6 +1,6 @@
 
 ### Get all contacts
-GET http://project-cse341-01wr.onrender.com/connection
+GET http://project-cse341-01wr.onrender.com/books
 
 
 ### Get contact by id
