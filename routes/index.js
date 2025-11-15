@@ -8,6 +8,6 @@ router.get("/", (req, res) => {
 
 router.use('/connection', require('./connection'))
 
-router.use('/books', require('./books.js'))
+router.use('/books', require('./books'))
 
 module.exports = router

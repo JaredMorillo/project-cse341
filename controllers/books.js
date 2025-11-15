@@ -16,8 +16,8 @@ const getSingleBook = async (req, res) => {
         return res.status(400).json({ error: 'Must use a valid book id' });
     }
     try {
-        const bookId = new ObjectId(req.params.id);
-        const result = await db.getDatabase().collection('books').findOne({ _id: bookId });
+        const booksId = new ObjectId(req.params.id);
+        const result = await db.getDatabase().collection('books').findOne({ _id: booksId });
         if (!result) return res.status(404).json({ message: 'Book not found' });
         res.status(200).json(result);
     } catch (err) {
@@ -28,13 +28,13 @@ const getSingleBook = async (req, res) => {
 
 const createBook = async (req, res) => {
     try {
-        const book = {
+        const books = {
             genre: req.body.genre,
             title: req.body.title,
             author: req.body.author,
             code: req.body.code,
         };
-        const response = await db.getDatabase().collection('books').insertOne(book);
+        const response = await db.getDatabase().collection('books').insertOne(books);
         res.status(201).json(response);
     } catch (err) {
         console.error(err);
@@ -47,14 +47,14 @@ const updateBook = async (req, res) => {
         return res.status(400).json({ error: 'Must use a valid book id' });
     }
     try {
-        const bookId = new ObjectId(req.params.id);
-        const book = {
+        const booksId = new ObjectId(req.params.id);
+        const books = {
             genre: req.body.genre,
             title: req.body.title,
             author: req.body.author,
             code: req.body.code,
         };
-        const response = await db.getDatabase().collection('books').replaceOne({ _id: bookId }, book);
+        const response = await db.getDatabase().collection('books').replaceOne({ _id: booksId }, books);
         if (response.modifiedCount > 0) {
             res.status(204).send();
         } else {
@@ -71,8 +71,8 @@ const deleteBook = async (req, res) => {
         return res.status(400).json({ error: "Invalid book ID" });
     }
     try {
-        const bookId = new ObjectId(req.params.id);
-        const result = await db.getDatabase().collection('books').deleteOne({ _id: bookId });
+        const booksId = new ObjectId(req.params.id);
+        const result = await db.getDatabase().collection('books').deleteOne({ _id: booksId });
         if (result.deletedCount > 0) {
             res.status(200).json({ message: 'Book deleted successfully' });
         } else {
