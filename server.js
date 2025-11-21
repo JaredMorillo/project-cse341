@@ -2,96 +2,137 @@ const express = require("express");
 const app = express();
 exports.app = app;
 
+require("dotenv").config();
+
 const routes = require("./routes");
 const db = require("./database/db");
 
-const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output.json');
-const bodyParser = require("body-parser");
-require("dotenv").config();
-
-const passport = require("passport");
-const session = require("express-session");
+// Middleware
+const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger-output.json");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
 
-// ---------------------------------------------
-// ORDER MATTERS — The correct order is below
-// ---------------------------------------------
+// -------------------------------------------------
+// MIDDLEWARE (ORDER MATTERS)
+// -------------------------------------------------
 
 // Parse cookies
 app.use(cookieParser());
 
-// Express body parsing
+// Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
-// Sessions FIRST
-app.use(session({
-    secret: "secret",
+// Sessions
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false,
     saveUninitialized: false,
-}));
+  })
+);
 
-// Passport NEXT
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// CORS AFTER session + passport
-app.use(cors({
-  origin: '*',
-  credentials: true,
-  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS']
-}));
+// CORS headers
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
 
-// Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+  })
+);
 
-// PASSPORT STRATEGY
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.GITHUB_CALLBACK_URL
-  },
-  function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
-  }
-));
+// -------------------------------------------------
+// PASSPORT GITHUB STRATEGY
+// -------------------------------------------------
+
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: process.env.GITHUB_CALLBACK_URL,
+    },
+    function (accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+    }
+  )
+);
 
 passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
+passport.deserializeUser((user, done) => done(null, user));
+
+// -------------------------------------------------
+// ROUTES
+// -------------------------------------------------
+
+// Swagger — forces logged-out state
+app.use(
+  "/api-docs",
+  (req, res, next) => {
+    req.session.user = null;
+    next();
+  },
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
 // Root route
 app.get("/", (req, res) => {
-  res.send(req.session.user !== undefined
-    ? `Logged in as ${req.session.user.displayName}`
-    : "Log out"
+  res.send(
+    req.session.user
+      ? `Logged in as ${req.session.user.displayName}`
+      : "Not logged in"
   );
 });
 
 // GitHub OAuth callback
 app.get(
-  '/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
+  "/github/callback",
+  passport.authenticate("github", {
+    failureRedirect: "/api-docs",
+    session: true,
+  }),
   (req, res) => {
-    req.session.user = req.user;  // ← stores user for your middleware
-    res.redirect('/');
+    req.session.user = req.user;
+    res.redirect("/");
   }
 );
 
-// Routes (after authentication system)
+// Attach all app routes
 app.use("/", routes);
 
-// Start DB + server
+// -------------------------------------------------
+// START SERVER
+// -------------------------------------------------
+
 const port = process.env.PORT || 8080;
+
 db.initDb((err) => {
   if (err) {
-    console.log(err);
+    console.error("Database init error:", err);
   } else {
     app.listen(port, () => {
-      console.log(`Database and App listening on port ${port}`);
+      console.log(`Database connected. Server running on port ${port}`);
     });
   }
 });
