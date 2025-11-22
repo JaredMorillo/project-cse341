@@ -5,10 +5,10 @@
     "description": "API Documentation for CSE 341",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "project-cse341-01wr.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
