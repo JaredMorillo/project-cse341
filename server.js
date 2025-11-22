@@ -132,7 +132,7 @@ db.initDb((err) => {
     console.error("Database init error:", err);
   } else {
     app.listen(port, () => {
-      console.log(`Database connected. Server running on port ${port}`);
+      console.log(`🚀 Server with database running on port ${port}...`);
     });
   }
 });

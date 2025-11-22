@@ -15,7 +15,7 @@ router.use('/connection', require('./connection'));
 router.use('/books', require('./books'));
 
 router.get('/login', passport.authenticate('github'), (req, res) => {
-    
+    res.redirect("/");
 });
 
 router.get('/logout', function (req, res, next){
